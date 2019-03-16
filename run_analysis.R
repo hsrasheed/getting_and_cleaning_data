@@ -10,12 +10,12 @@
 
 library(data.table)
 
-# This file is intended to be run in the top level "UCI HAR Dataset" containing the test and training directory and metadata files.
+# This file is intended to be run in the folder just above the "UCI HAR Dataset" folder that contains the test and training directory and metadata files.
 
 # Read metadata files
-df_activities = read.table("activity_labels.txt",sep="",header=FALSE)
+df_activities = read.table("UCI HAR Dataset\\activity_labels.txt",sep="",header=FALSE)
 names(df_activities) <- c("label","activity_name")
-df_features= read.table("features.txt",sep="",header=FALSE)
+df_features= read.table("UCI HAR Dataset\\features.txt",sep="",header=FALSE)
 names(df_features) <- c("feature_number","feature_name")
 
 # Find all of the desired features (those with mean and std in the label)
@@ -28,12 +28,12 @@ desired_measurements <- gsub("[()]","",desired_measurements)
 
 # load the training and test files, selecting only the columns with the desired measurements
 # x = measurements, y = activity
-df_X_train <- read.table("train\\X_train.txt",sep="",header=FALSE,col.names=df_features[["feature_name"]])[ , desired_feature_num]
-df_Y_train <- read.table("train\\Y_train.txt",sep="",header=FALSE,col.names=c("activity"))
-df_subject_train <- read.table("train\\subject_train.txt",sep="",header=FALSE,col.names=c("subject_num"))
-df_X_test <- read.table("test\\X_test.txt",sep="",header=FALSE,col.names=df_features[["feature_name"]])[ , desired_feature_num]
-df_Y_test <- read.table("test\\Y_test.txt",sep="",header=FALSE,col.names=c("activity"))
-df_subject_test <- read.table("test\\subject_test.txt",sep="",header=FALSE,col.names=c("subject_num"))
+df_X_train <- read.table("UCI HAR Dataset\\train\\X_train.txt",sep="",header=FALSE,col.names=df_features[["feature_name"]])[ , desired_feature_num]
+df_Y_train <- read.table("UCI HAR Dataset\\train\\Y_train.txt",sep="",header=FALSE,col.names=c("activity"))
+df_subject_train <- read.table("UCI HAR Dataset\\train\\subject_train.txt",sep="",header=FALSE,col.names=c("subject_num"))
+df_X_test <- read.table("UCI HAR Dataset\\test\\X_test.txt",sep="",header=FALSE,col.names=df_features[["feature_name"]])[ , desired_feature_num]
+df_Y_test <- read.table("UCI HAR Dataset\\test\\Y_test.txt",sep="",header=FALSE,col.names=c("activity"))
+df_subject_test <- read.table("UCI HAR Dataset\\test\\subject_test.txt",sep="",header=FALSE,col.names=c("subject_num"))
 
 # Join the three data sets together to make one training set
 df_train_X_Y <- cbind(df_X_train,df_Y_train,df_subject_train)
